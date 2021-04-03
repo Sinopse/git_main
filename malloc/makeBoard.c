@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,8 +26,10 @@ board_t * makeBoard(int w, int h)
     while(x < h) {
       row[x] = UNKNOWN;
       b->board[y] = row[x];
+      row = NULL;
       x++;
     }
+    y = 0;
     y++;
      
   // addRandomMine(b);
