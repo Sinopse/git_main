@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,17 +21,16 @@ board_t * makeBoard(int w, int h)
   size_t x = 0;
 
   int * row = NULL; // store each *row
-
-  while (y < h) {
-    b->board = realloc(b->board, (y+1) * sizeof(*b->board));
-    b->board[y] = row;
-    while (x < w) {
-      row = realloc(row, (x+1) * sizeof(*row));
+  b->board = malloc(w * sizeof(*b->board));
+  row = malloc(h * sizeof(*row));
+  while(y < w) {
+    while(x < h) {
       row[x] = UNKNOWN;
+      b->board[y] = row[x];
       x++;
     }
     y++;
-}
+     
   // addRandomMine(b);
   return b;
 }
