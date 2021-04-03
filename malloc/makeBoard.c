@@ -29,7 +29,7 @@ board_t * makeBoard(int w, int h)
       row = NULL;
       x++;
     }
-    y = 0;
+    x = 0;
     y++;
      
   // addRandomMine(b);
