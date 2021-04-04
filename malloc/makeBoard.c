@@ -51,6 +51,24 @@ void printRow(board_t * r, int w, int h)
       printf("\n"); 
   }
 }
+
+void freeBoard(board_t * b) {
+  //undo all allocations
+  int width = b->width;
+  int height = b->height;
+  int x = 0, y = 0;
+
+  while(y < w) {
+    while(x < h) {
+      free(b->board[y][x]);
+      x++;
+    }
+    free[b->board[y]];
+    y++;
+  }
+  free(b->board);
+  free(b);
+}
   
 int main()
 {
