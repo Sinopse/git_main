@@ -20,18 +20,24 @@ board_t * makeBoard(int w, int h)
   size_t x = 0;
 
   int * row = NULL; // store each *row
-  b->board = malloc(w * sizeof(*b->board));
-  row = malloc(h * sizeof(*row));
+  b->board = malloc(w * sizeof(*b->board)); // defined fixed array size
+
+  // don't have to realloc b->board
+  // instead realloc row on each iteration
+  
   while(y < w) {
     while(x < h) {
+      row = realloc(row, (x+1) * sizeof(*row));
       row[x] = UNKNOWN;
-      b->board[y] = row[x];
-      row = NULL;
       x++;
     }
+    b->board[y] = row;
+    row = NULL;
     x = 0;
     y++;
-     
+  }
+  // check
+  b->board[2][5] = -2;
   // addRandomMine(b);
   return b;
 }
@@ -42,6 +48,7 @@ void printRow(board_t * r, int w, int h)
       for (size_t j = 0; j < h; j++) {
 	printf("%d ", r->board[i][j]);
       }
+      printf("\n"); 
   }
 }
   
