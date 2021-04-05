@@ -40,7 +40,7 @@ void addRandomMine(board_t * b) {
   b->board[y][x] = HAS_MINE;
 }
 
-Board_t * makeBoard(int w, int h, int numMines) {
+board_t * makeBoard(int w, int h, int numMines) {
 
   // malloc for struct
   board_t * b = malloc(sizeof(*b));
@@ -126,18 +126,20 @@ void printBoard(board_t * b) {
 int countMines(board_t * b, int x, int y) {
   // check y and x - what is width and height exactly
   // all cords -1
+  int mineCnt = 0;
   for (int dy = -1; dy <=1 ; dy++) {
     for (int dx = -1; dx <=1 ; dx++) {
       int nx = x + dx;
       int ny = y + dy;
       if (nx >= 0 && nx < b->width &&
 	  ny >= 0 && ny < b->height) {
-	if (b->board[ny][nx] == KNOWN_MINE || b->board[row][col] == HAS_MINE) {
-	  printf("%d\n", b->board[ny][nx]);
+	if (b->board[ny][nx] == KNOWN_MINE || b->board[ny][nx] == HAS_MINE) {
+	  //printf("%d\n", b->board[ny][nx]);
 	  mineCnt++;
 	}
       }
     }
+  }
     return mineCnt;
 }
  
