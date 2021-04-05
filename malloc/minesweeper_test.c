@@ -41,7 +41,7 @@ void addRandomMine(board_t * b) {
 }
 
 board_t * makeBoard(int w, int h, int numMines) {
-{
+
   // malloc for struct
   board_t * b = malloc(sizeof(*b));
   b->width = w;
