@@ -132,8 +132,10 @@ int countMines(board_t * b, int x, int y) {
       int ny = y + dy;
       if (nx >= 0 && nx < b->width &&
 	  ny >= 0 && ny < b->height) {
-	if (b->board[ny][nx] == KNOWN_MINE || b->board[row][col] == HAS_MINE)
+	if (b->board[ny][nx] == KNOWN_MINE || b->board[row][col] == HAS_MINE) {
+	  printf("%d\n", b->board[ny][nx]);
 	  mineCnt++;
+	}
       }
     }
     return mineCnt;
