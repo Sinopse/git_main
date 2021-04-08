@@ -8,6 +8,7 @@ void copyKVs(char * destination, const char * target, int start, int end) {
   while(start <= end) {
     destination[start] = target[start];
     start++;
+  }
 }
 
 long long int stripEqSign(char * line) {
