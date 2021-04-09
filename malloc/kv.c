@@ -31,23 +31,23 @@ void stripNewline(char * str) {
 
 kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
   kvpair_t * pair = malloc(sizeof(*pair)); // storing a single pair
-  long long int epos = 0; //position of the equal sign                                                                                    
- 
+  long long int epos = 0; //position of the equal sign
+
   epos = stripEqSign(line);
   stripNewline(line);
-      
+
   pair->key = malloc(sizeof(*pair->key));
   pair->value = malloc(sizeof(*pair->value));
-  
+
   copyKVs(pair->key, line, 0, epos); // copy till \0 incl
-  copyKVs(pair->value, line, epos, len);
+  copyKVs(pair->value, line, epos, *len);
   return pair;
 }
 
 kvarray_t * readKVs(const char * fname) {
   FILE *f = fopen(fname, "r");
   if (f == NULL) {
-    return NULL; // could not open                                    
+    return NULL; // could not open
   }
   char * line = NULL;
   ssize_t len = 0;
@@ -55,7 +55,7 @@ kvarray_t * readKVs(const char * fname) {
   kvarray_t * answer = malloc(sizeof(*answer));
   answer->numPairs = 0;
   // read lines continuosly
-  while (len = getline(&line, &sz, f) >= 0) {
+  while ((len = getline(&line, &sz, f)) >= 0) {
     answer->pairs = realloc(answer->pairs,
 			    (answer->numPairs+1) *sizeof(*answer->pairs));
     answer->pairs[answer->numPairs] = readAPair(line, &len, &sz); // use numPairs as index
@@ -67,14 +67,14 @@ kvarray_t * readKVs(const char * fname) {
   return answer;
 }
 
-  /* void freeKVs(kvarray_t * pairs) { */
-  /*   //WRITE ME */
-  /* } */
+/* void freeKVs(kvarray_t * pairs) { */
+/*   //WRITE ME */
+/* } */
 
-  void printKVs(kvarray_t * pairs) {
-    int num = pairs->numPairs;
-    for (int i = 0; i < num; i++) {
-      printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
-	     pairs->pairs[i]->key);
-    }
+void printKVs(kvarray_t * pairs) {
+  int num = pairs->numPairs;
+  for (int i = 0; i < num; i++) {
+    printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
+	   pairs->pairs[i]->value);
   }
+}
