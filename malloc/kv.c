@@ -88,9 +88,15 @@ char * lookupValue(kvarray_t * pairs, const char * key) {
   int num = pairs->numPairs;
   int found = 0;
   int i;
+<<<<<<< HEAD
 
   for (i = 0; i < num; i++) {
     if (strcmp(pairs->pairs[i]->key, key) == 0) {
+=======
+  printf("runs\n");
+  for (i = 0; i < num; i++) {
+    if (pairs->pairs[i]->key == key) {
+>>>>>>> 23e2596e9b02321e6ff1339a7f301c97702d6b60
       found = 1;
       break;
     }   
