@@ -32,13 +32,17 @@ void stripNewline(char * str) {
 kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
   kvpair_t * pair = malloc(sizeof(*pair)); // storing a single pair
   long long int epos = 0; //position of the equal sign
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 8e2a6d0ef505cc81af4f9f5d1adde61cffe1d108
   epos = stripEqSign(line);
   stripNewline(line);
-      
+
   pair->key = malloc(sizeof(*pair->key));
   pair->value = malloc(sizeof(*pair->value));
-  
+
   copyKVs(pair->key, line, 0, epos); // copy till \0 incl
   copyKVs(pair->value, line, epos, *len);
   return pair;
@@ -47,7 +51,7 @@ kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
 kvarray_t * readKVs(const char * fname) {
   FILE *f = fopen(fname, "r");
   if (f == NULL) {
-    return NULL; // could not open                                    
+    return NULL; // could not open
   }
   char * line = NULL;
   ssize_t len = 0;
@@ -67,14 +71,23 @@ kvarray_t * readKVs(const char * fname) {
   return answer;
 }
 
-  /* void freeKVs(kvarray_t * pairs) { */
-  /*   //WRITE ME */
-  /* } */
+/* void freeKVs(kvarray_t * pairs) { */
+/*   //WRITE ME */
+/* } */
 
+<<<<<<< HEAD
   void printKVs(kvarray_t * pairs) {
     int num = pairs->numPairs;
     for (int i = 0; i < num; i++) {
       printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
 	     pairs->pairs[i]->value);
     }
+=======
+void printKVs(kvarray_t * pairs) {
+  int num = pairs->numPairs;
+  for (int i = 0; i < num; i++) {
+    printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
+	   pairs->pairs[i]->value);
+>>>>>>> 8e2a6d0ef505cc81af4f9f5d1adde61cffe1d108
   }
+}
