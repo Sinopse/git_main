@@ -29,13 +29,10 @@ void stripNewline(char * str) {
   }
 }
 
-kvpair_t * readAPair(FILE * f) {
+kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
   kvpair_t * pair = malloc(sizeof(*pair)); // storing a single pair
-  char * line = NULL;
-  ssize_t len = 0;
-  size_t sz = 0;
   long long int epos = 0; //position of the equal sign                                                                                    
-  len = getline(&line, &sz, f);
+ 
   epos = stripEqSign(line);
   stripNewline(line);
       
@@ -53,14 +50,15 @@ kvarray_t * readKVs(const char * fname) {
     return NULL; // could not open                                    
   }
   char * line = NULL;
+  ssize_t len = 0;
   size_t sz = 0;
   kvarray_t * answer = malloc(sizeof(*answer));
   answer->numPairs = 0;
-  
-  while (getline(&line, &sz, f) >= 0) {
+  // read lines continuosly
+  while (len = getline(&line, &sz, f) >= 0) {
     answer->pairs = realloc(answer->pairs,
 			    (answer->numPairs+1) *sizeof(*answer->pairs));
-    answer->pairs[answer->numPairs] = readAPair(f); // use numPairs as index
+    answer->pairs[answer->numPairs] = readAPair(line, &len, &sz); // use numPairs as index
     answer->numPairs++;
   }
   free(line); // correct?
