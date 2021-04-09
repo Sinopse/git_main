@@ -32,15 +32,7 @@ void stripNewline(char * str) {
 kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
   kvpair_t * pair = malloc(sizeof(*pair)); // storing a single pair
   long long int epos = 0; //position of the equal sign
-<<<<<<< HEAD
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 8e2a6d0ef505cc81af4f9f5d1adde61cffe1d108
-  epos = stripEqSign(line);
-=======
->>>>>>> 7fdf358607b1a0ee3d2471630c98c08f285a86af
   stripNewline(line);
   epos = stripEqSign(line);
   pair->key = malloc(sizeof(*pair->key));
@@ -83,36 +75,29 @@ void freeKVs(kvarray_t * pairs) {
   free(pairs);
 }
 
-<<<<<<< HEAD
-  void printKVs(kvarray_t * pairs) {
-    int num = pairs->numPairs;
-    for (int i = 0; i < num; i++) {
-      printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
-	     pairs->pairs[i]->value);
-    }
-=======
+
 void printKVs(kvarray_t * pairs) {
   int num = pairs->numPairs;
   for (int i = 0; i < num; i++) {
     printf("key = '%s' value = '%s'\n",  pairs->pairs[i]->key,
 	   pairs->pairs[i]->value);
->>>>>>> 8e2a6d0ef505cc81af4f9f5d1adde61cffe1d108
   }
 }
 
 char * lookupValue(kvarray_t * pairs, const char * key) {
   int num = pairs->numPairs;
-  bool found = 0;
-  while(!found) {
-    for (int i = 0; i < numl; i++) {
-      if (pairs->pairs[i]->key == key) {
-	found = 1;
-	return pairs->pairs[i]-value;
-      }
-      else
-	continue;
-    }
+  int found = 0;
+  int i;
+  printf("runs\n");
+  for (i = 0; i < num; i++) {
+    if (pairs->pairs[i]->key == key) {
+      found = 1;
+      break;
+    }   
   }
+  
   if(!found)
     return NULL;
+  else
+    return pairs->pairs[i]->value;
 }
