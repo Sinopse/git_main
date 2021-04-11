@@ -35,8 +35,8 @@ kvpair_t * readAPair(char * line, ssize_t * len, size_t * sz) {
 
   stripNewline(line);
   epos = stripEqSign(line);
-  pair->key = malloc(sizeof(*pair->key));
-  pair->value = malloc(sizeof(*pair->value));
+  pair->key = malloc(epos *sizeof(char)+1);
+  pair->value = malloc((*len-epos) *sizeof(char)+1);
   copyKVs(pair->key, line, 0, epos); // copy till \0 incl
   copyKVs(pair->value, line, epos, *len);
   return pair;
@@ -52,10 +52,10 @@ kvarray_t * readKVs(const char * fname) {
   size_t sz = 0;
   kvarray_t * answer = malloc(sizeof(*answer));
   answer->numPairs = 0;
-  // read lines continuosly
+  answer->pairs = NULL;
+  // Read lines continuosly
   while ((len = getline(&line, &sz, f)) >= 0) {
-    answer->pairs = realloc(answer->pairs,
-			    (answer->numPairs+1) *sizeof(*answer->pairs));
+    answer->pairs = realloc(answer->pairs,(answer->numPairs+1) *sizeof(*answer->pairs));
     answer->pairs[answer->numPairs] = readAPair(line, &len, &sz); // use numPairs as index
     answer->numPairs++;
   }
@@ -70,7 +70,7 @@ void freeKVs(kvarray_t * pairs) {
   for (int i = 0; i < num; i++) {
     free(pairs->pairs[i]->key);
     free(pairs->pairs[i]->value);
-    free(pairs->pairs[i]); // check that
+    free(pairs->pairs[i]);
   }
   free(pairs);
 }
